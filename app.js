@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const fileupload = require('express-fileupload');
 const path       = require('path')
 const app        = express();
+const port       = process.env.PORT || 3000
+
 
 //***** Controleur *****//
 const createArticleController = require('./controllers/createArticle');
@@ -73,8 +75,8 @@ app.post("/articles/post", (req, res) => {
 
 
 //*** Savoir sur quel cochon tourne le site ***//
-app.listen(3000, function () {
-    console.log("Le serveur tourne sur le Cochon 3000");
+app.listen(port, function () {
+    console.log("Le serveur tourne sur le Cochon " + port);
 })
 
 //*****lololololololol *****//

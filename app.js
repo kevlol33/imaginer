@@ -13,7 +13,9 @@ const homePage = require('./controllers/homePage');
 
 
 //***** Use Mongoose *****//
-mongoose.connect('mongodb://localhost:27017/blog', {useNewUrlParser: true, useUnifiedTopology: true});
+const urlDb = "mongodb+srv://kev:Klm123@cluster0-tlcr7.mongodb.net/test?retryWrites=true&w=majority" 
+// const urlDb = 'mongodb://localhost:27017/blog'
+mongoose.connect(urlDb, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //***** Moment *****//
 var Handlebars = require("handlebars");

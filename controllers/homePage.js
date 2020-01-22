@@ -1,4 +1,4 @@
-const Post       = require("./database/model/Article");
+const Post       = require("../database/model/Article");
 
 module.exports   = async (req, res) => {
     const posts  = await Post.find({});

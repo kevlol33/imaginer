@@ -1,16 +1,10 @@
 //***** Costante *****//
-const express    = require('express');
-const exphbs     = require('express-handlebars');
-const mongoose   = require('mongoose');
-const bodyParser = require('body-parser');
-const fileupload = require('express-fileupload');
-const app        = express();
-const port       = process.env.PORT || 3000
-
-//***** Middelware *****//
-const articleValidPost       = require('./middleware/articleValidPost')
-app.use("/articles/post", articleValidPost)
-
+const express         = require('express');
+const exphbs          = require('express-handlebars');
+const mongoose        = require('mongoose');
+const bodyParser      = require('body-parser');
+const fileupload      = require('express-fileupload');
+const expressSsession = require('express-session');
 
 //***** Controleur *****//
     //** Articles **//
@@ -27,30 +21,37 @@ const userLoginAuth         = require('./controllers/userLoginAuth')
 
 
 
-//***** Use Mongoose *****//
-// const urlDb = "mongodb+srv://kev:Klm123@cluster0-tlcr7.mongodb.net/test?retryWrites=true&w=majority" 
+//***** Mongoose *****//
+// const urlDb = "mongodb+srv://kev:Klm123@cluster0-tlcr7.mongodb.net/test?retryWrites=true&w=majority"// 
 const urlDb     = "mongodb://localhost:27017/blog"
 mongoose.connect(urlDb, {useNewUrlParser: true, useUnifiedTopology: true});
 
-//***** Moment *****//
-var Handlebars               = require("handlebars");
-var MomentHandler            = require("handlebars.moment");
-MomentHandler.registerHelpers(Handlebars);
-
-//***** Use *****//
+//***** Express() *****//
+const app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(fileupload())
+app.use(expressSsession({
+    secret: 'securite',
+    name: 'biscuit'
+}))
+
+//***** Middelware *****//
+const articleValidPost = require('./middleware/articleValidPost')
+app.use("/articles/post", articleValidPost)
+
+//***** Moment *****//
+var Handlebars = require("handlebars");
+var MomentHandler = require("handlebars.moment");
+MomentHandler.registerHelpers(Handlebars);
 
 //***** Hbs *****//
 app.engine('hbs', exphbs({ defaultLayout: 'main' }));
 app.set   ('view engine', 'hbs');
 
-//***** Routes *****//
-app.get ("/", homePage)
-
 //***** Articles *****//
+app.get ("/", homePage)
 app.get ("/articles/:id", articlSingleController)
 app.get ("/article/add", articleAddController)
 app.post("/articles/post", articlePostController)
@@ -67,6 +68,7 @@ app.get("/contact", (req, res) => {
 })
 
 //*** Savoir sur quel cochon tourne le site ***//
+const port = process.env.PORT || 3000
 app.listen(port, function () {
     console.log("Le serveur tourne sur le Cochon " + port);
 })

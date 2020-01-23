@@ -7,6 +7,5 @@ module.exports = (req, res) => {
                 return res.redirect('/user/create')
             }
             res.redirect('/')
-        }
-    )
-}
+        })}
+        

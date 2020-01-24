@@ -8,16 +8,17 @@ const bcrypt = require('bcrypt')
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: [true,'Le nom est obligatoire !' ]
+
     },
     email: {
         type: String,
-        required: true,
+        required: [true,"L'e-mail est obligatoire !" ],
         unique: true
     },
     password: {
         type: String,
-        required: true
+        required: [true,'Le mot de passe est obligatoire !' ]
     },
 })
 UserSchema.pre('save', function (next) {

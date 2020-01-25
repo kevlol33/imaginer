@@ -28,8 +28,8 @@ const auth = require("./middleware/auth");
 const redirectAuthSuccess = require('./middleware/redirectAuthSucess')
 
 //***** Mongoose *****//
-// const urlDb  = "mongodb+srv://kev:Klm123@cluster0-tlcr7.mongodb.net/test?retryWrites=true&w=majority"// 
-const urlDb     = "mongodb://localhost:27017/blog"
+const urlDb  = "mongodb+srv://kev:Klm123@cluster0-tlcr7.mongodb.net/test?retryWrites=true&w=majority"// 
+//const urlDb     = "mongodb://localhost:27017/blog"
 mongoose.connect(urlDb, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //***** Express() *****//
